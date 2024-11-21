@@ -1,17 +1,24 @@
-import conectarAoBanco from "../dbConfig.js"      //importo o que chamo o banco   //uso uma barra pro dbConfig que a pasta não fiz a pasta somente com o dbConfig.js // essa pasta 
-// essa pasta tem as pastas das outras partes mas não a exclusiva de config
+import conectarAoBanco from "../dbConfig.js"      // Importa a função para conectar ao banco de dados, localizada em um arquivo em um diretório acima.
+// A ausência da pasta "dbConfig" pode indicar uma estrutura de projeto diferente ou uma configuração específica.
 
-//model é a camada que faz a conexão da aplicação  com o banco
-const conexao = await conectarAoBanco(process.env.STRING_CONEXAO); // Conecta ao banco de dados utilizando a string de conexão fornecida pela variável de ambiente STRING_CONEXAO.
+// Model: Camada responsável por interagir com o banco de dados.
+const conexao = await conectarAoBanco(process.env.STRING_CONEXAO); // Estabelece a conexão com o banco de dados usando a string de conexão fornecida pela variável de ambiente.
 
-// Função assíncrona que retorna todos os posts de uma coleção específica no banco de dados.
-export default async function getTodosPosts() {
-    // Obtém o banco de dados "imersão-instabyre" da conexão estabelecida.
-    const db = conexao.db("imersão-instabyre");
-    
-    // Obtém a coleção "posts" do banco de dados.
-    const colecao = db.collection("posts");
-    
-    // Executa uma consulta para encontrar todos os documentos da coleção e retorna os resultados como um array.
-    return colecao.find().toArray();
-  };
+// Obtém todos os posts de uma coleção.
+export async function getTodosPosts() {
+  // Seleciona o banco de dados "imersão-instabyre".
+  const db = conexao.db("imersão-instabyre");
+  // Seleciona a coleção "posts" dentro do banco de dados.
+  const colecao = db.collection("posts");
+  // Executa uma consulta para encontrar todos os documentos (posts) e retorna os resultados como um array.
+  return colecao.find().toArray();
+}
+
+// Cria um novo post na coleção.
+export async function criarPost(novoPost) {
+  // Seleciona o banco de dados e a coleção "posts".
+  const db = conexao.db("imersão-instabyre");
+  const colecao = db.collection("posts");
+  // Insere um novo documento (post) na coleção e retorna o resultado da operação.
+  return colecao.insertOne(novoPost);
+}
