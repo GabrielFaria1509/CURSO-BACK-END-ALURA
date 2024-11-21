@@ -1,8 +1,8 @@
 //comandos para funcionar
 //abrir no terminal o prompt de comando
-//digitar npm init es6 -y e dar enter
+//digitar npm init es6 -y e dar enter , npm install multer tb
 //npm install express e enter
-//ter instalado o node.js  no pc 
+//ter instalado o node.js  no pc (baixa pelo navegador)
 //para abrir servidor node nomearquivo.
 //http://localhost:3000/api no navegador para acessar server
 import express from "express"; // Importa o framework Express, que será utilizado para criar a aplicação web.
