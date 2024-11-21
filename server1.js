@@ -18,7 +18,8 @@ app.listen(3000, () => {
   console.log("servidor escutando...");
 });
 
-
+//usar npm rund dev
+//"node --watch --env-file=.env server.js", //alterar o package.json na linha 27 dev :" ..." e colocar o novo texto 
 
 
 
