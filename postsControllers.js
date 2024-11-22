@@ -1,5 +1,6 @@
-import {getTodosPosts , criarPost} from "../models/postsModels.js";
+import {getTodosPosts , criarPost, atualizarPost} from "../models/postsModels.js";
 import fs from "fs"
+import  gerarDescricaoComGemini from "../services/geminiservice.js"
 
 export async function listarPosts(req, res)  {
     // Chama a função getTodosPosts para obter os posts do banco de dados.
@@ -38,6 +39,30 @@ export async function uploadImagem(req,res){
     }
 
 }
+
+export async function atualizarNovoPost(req,res){
+    const id = req.params.id;
+    const urlIamgem = `http://localhost:300/${id}.png`
+    
+    try{
+        const imgmBuffer = fs.readFileSync(`uploads/${id}.png`)
+        const descricao = await gerarDescricaoComGemini(imgmBuffer)
+
+        const post = {            //objeto que representa o post com os dados que vieram na requsição
+            imgUrl : urlIamgem,
+            descricao : descricao,
+            alt : req.body.alt
+        }
+        
+        const postCriado = await atualizarPost(id,post);
+        res.status(200).json(postCriado);
+    } catch(erro){         //o quie fazer se der errado a criacão do post
+        console.error(erro);
+        res.status(500).json({"Eroo" :"Falha na requisicao "})
+    }
+
+}
+
 
 
 
