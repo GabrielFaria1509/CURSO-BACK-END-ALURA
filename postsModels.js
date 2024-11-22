@@ -1,3 +1,5 @@
+import 'dotenv/config';
+import { ObjectId } from "mongodb";
 import conectarAoBanco from "../dbConfig.js"      // Importa a função para conectar ao banco de dados, localizada em um arquivo em um diretório acima.
 // A ausência da pasta "dbConfig" pode indicar uma estrutura de projeto diferente ou uma configuração específica.
 
@@ -21,4 +23,14 @@ export async function criarPost(novoPost) {
   const colecao = db.collection("posts");
   // Insere um novo documento (post) na coleção e retorna o resultado da operação.
   return colecao.insertOne(novoPost);
+}
+
+export async function atualizarPost(id, novoPost) {
+  // Seleciona o banco de dados e a coleção "posts".
+  const db = conexao.db("imersão-instabyre");
+  const colecao = db.collection("posts");
+  
+  const objID = ObjectId.createFromHexString(id)
+  // Insere um novo documento (post) na coleção e retorna o resultado da operação.
+  return colecao.updateOne({_id:new ObjectId(objID)},{$set:novoPost} );
 }
