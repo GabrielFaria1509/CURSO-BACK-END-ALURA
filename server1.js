@@ -11,6 +11,8 @@ import routes from "./src/config/routes/postsRoutes.js";
 
 // Cria uma instância do Express, que será utilizada para definir as rotas e as funcionalidades da aplicação.
 const app = express();
+
+app.use(express.static("uploads"))
 routes(app);
 
 // Inicia o servidor na porta 3000 e exibe uma mensagem no console quando o servidor estiver ouvindo por conexões.
@@ -20,6 +22,10 @@ app.listen(3000, () => {
 
 //usar npm rund dev
 //"node --watch --env-file=.env server.js", //alterar o package.json na linha 27 dev :" ..." e colocar o novo texto 
+
+//npm i @google/generative-ai instalação para usar IA google
+//np, install i cors tb usa
+//>npm install dotenv tb usa para subir server na cloud
 
 
 
